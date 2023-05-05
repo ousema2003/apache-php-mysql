@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mysql
+  namespace: ns-demo-phpmysql
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: manual
+  volumeMode: Filesystem
+  volumeName: pv-mysql
+status:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-apachephp
+  namespace: ns-demo-phpmysql
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: manual
+  volumeMode: Filesystem
+  volumeName: pv-apachephp
+status:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi
+...
