@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: svc-apache-clusterip
-  namespace: ns-demo-phpmysql
+  namespace: ns-phpmysql
 spec:
   selector:
     app: apache
@@ -17,7 +17,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: svc-apache-nodeport
-  namespace: ns-demo-phpmysql
+  namespace: ns-phpmysql
 spec:
   selector:
     app: apache
