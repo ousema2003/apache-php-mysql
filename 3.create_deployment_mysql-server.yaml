@@ -1,0 +1,37 @@
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: ousema2003/k8s:mysql-server
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+          command: [ "/bin/bash", "-c", "--"]
+          args: [ "if [ -e /var/lib/mysql/test/tab1.ibd ]; then echo 'DB found';else cp -pvr /var/lib/mysql.back/* /var/lib/mysql;fi;mysqld;while true; do sleep 30; done;" ]
+          #args: [ "while true; do sleep 30; done;" 
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: pvc-mysql
+...  

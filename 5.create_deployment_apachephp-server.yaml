@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apachephp
+spec:
+  selector:
+    matchLabels:
+      app: apache
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+        - image: ousema2003/k8s:apache-php
+          name: apachephp
+          ports:
+            - containerPort: 8080
+              name: mapache-port
+          volumeMounts:
+            - name: apache-persistent-storage
+              mountPath: /app
+          #args: [ "while true; do sleep 30; done;" ]
+      volumes:
+        - name: apache-persistent-storage
+          persistentVolumeClaim:
+            claimName: pvc-apachephp
+...         
