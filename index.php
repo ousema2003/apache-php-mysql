@@ -1,9 +1,9 @@
 <html>
 <head>
+  <title>select from database</title>
 </head>
 <body>
 
-POPCORN
 
 <?php 
 ini_set('display_errors', 1);
@@ -15,7 +15,7 @@ error_reporting(~0);
 
 $conn = new PDO('mysql:host=svc-mysqldb:3306;dbname=test','test','test');
 
-$stmt = $conn->query("select * from tab1");
+$stmt = $conn->query("select * from tab1 order by col1 desc");
 
 
 while ($row=$stmt->fetch()) {
