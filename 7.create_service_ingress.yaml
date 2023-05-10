@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apachephp-ingress
+  annotations: 
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /insert
+          pathType: Prefix
+          backend:
+            service: 
+              name: svc-apache-clusterip-insert
+              port: 
+                number: 80
+        - path: /select
+          pathType: Prefix
+          backend:
+            service: 
+              name: svc-apache-clusterip-select
+              port: 
+                number: 80
+

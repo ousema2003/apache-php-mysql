@@ -17,24 +17,4 @@ status:
   - ReadWriteMany
   capacity:
     storage: 20Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-apachephp
-  namespace: ns-phpmysql
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: manual
-  volumeMode: Filesystem
-  volumeName: pv-apachephp
-status:
-  accessModes:
-  - ReadWriteMany
-  capacity:
-    storage: 1Gi
 ...

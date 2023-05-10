@@ -2,31 +2,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apachephp
+  name: apachephp-select
   namespace: ns-phpmysql
 spec:
+  replicas: 3
   selector:
     matchLabels:
-      app: apache
+      app: apache-select
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: apache
+        app: apache-select
     spec:
       containers:
-        - image: ousema2003/k8s:apache-php
-          name: apachephp
+        - image: ousema2003/k8s:apachephp-select
+          name: apachephpselect
           ports:
             - containerPort: 8080
               name: mapache-port
-          volumeMounts:
-            - name: apache-persistent-storage
-              mountPath: /app
-          #args: [ "while true; do sleep 30; done;" ]
-      volumes:
-        - name: apache-persistent-storage
-          persistentVolumeClaim:
-            claimName: pvc-apachephp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apachephp-insert
+  namespace: ns-phpmysql
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apache-insert
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: apache-insert
+    spec:
+      containers:
+        - image: ousema2003/k8s:apachephp-insert
+          name: apachephpinsert
+          ports:
+            - containerPort: 8080
+              name: mapache-port
 ...         
